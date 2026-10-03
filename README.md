@@ -72,10 +72,12 @@ date and href, urls include the date: `/blog/2026/10/01/my-post`).
 
 ## deploy
 
-- `npm run build` → static files in `build/`
-- github pages: set `url` / `baseUrl` in `docusaurus.config.ts`
-  (`baseUrl: '/portafoli/'` if the repo is not `username.github.io`),
-  then `npm run deploy`
+- **automatic:** `.github/workflows/deploy.yml` builds and publishes on every
+  push to `main` → [sherikxd.github.io](https://sherikxd.github.io)
+  (repo settings → Pages → source: **GitHub Actions**)
+- local: `npm run build` → static files in `build/`, `npm run serve` to check
+- `url` / `baseUrl` live in `docusaurus.config.ts`
+  (`baseUrl: '/portafoli/'` if the repo is not `username.github.io`)
 - or drop `build/` on netlify / vercel / any static host
 
 ## sources
