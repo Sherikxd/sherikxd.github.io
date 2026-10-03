@@ -579,7 +579,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title="18 y/o dev from colombia"
-      description="portfolio of Andrei Sherikhov (Sherikxd) — self-taught developer from Colombia, coding since he was 7. AyudaEnCali, fire detection with AI, and Áureo (2nd place, EAG Global Buildathon)."
+      description="Portfolio of Andrei Sherikhov (Sherikxd) — 18 y/o self-taught dev from Colombia, coding since he was 7. AyudaEnCali, AI fire detection and Áureo (2nd, EAG Buildathon)."
     >
       <main>
         <Hero />

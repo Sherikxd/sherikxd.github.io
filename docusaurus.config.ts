@@ -89,6 +89,67 @@ const paperOnInk: PrismTheme = {
   ],
 };
 
+// structured data for the whole site: one Person entity (so google and ai
+// assistants can link this page to "Andrei Sherikhov / Sherikxd") + WebSite
+const personGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': 'https://sherikxd.github.io/#person',
+      name: 'Andrei Sherikhov',
+      alternateName: ['Sherikxd', 'sherikdev'],
+      url: 'https://sherikxd.github.io/',
+      email: 'mailto:sherikdev@gmail.com',
+      jobTitle: 'software developer',
+      description:
+        '18-year-old self-taught developer from Cali, Colombia. Coding since he was 7. Builds web apps, AI tools and Ethereum infrastructure.',
+      image: 'https://sherikxd.github.io/img/avatar.png',
+      sameAs: [
+        'https://github.com/Sherikxd',
+        'https://www.linkedin.com/in/andrei-sherikhov-3a06582a7/',
+        'https://dev.to/sherikxd',
+      ],
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Cali',
+        addressRegion: 'Valle del Cauca',
+        addressCountry: 'CO',
+      },
+      knowsAbout: [
+        'software development',
+        'web development',
+        'data science',
+        'cloud infrastructure',
+        'automation',
+        'system design',
+        'artificial intelligence',
+        'machine learning',
+        'ethereum',
+        'solidity',
+        'agent economies',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://sherikxd.github.io/#website',
+      url: 'https://sherikxd.github.io/',
+      name: 'Andrei Sherikhov',
+      description:
+        'portfolio of Andrei Sherikhov (Sherikxd) — 18 y/o developer from Colombia, coding since he was 7.',
+      inLanguage: 'en',
+      publisher: {'@id': 'https://sherikxd.github.io/#person'},
+    },
+    {
+      '@type': 'ProfilePage',
+      '@id': 'https://sherikxd.github.io/#profile',
+      url: 'https://sherikxd.github.io/',
+      name: 'Andrei Sherikhov (Sherikxd)',
+      mainEntity: {'@id': 'https://sherikxd.github.io/#person'},
+    },
+  ],
+};
+
 const config: Config = {
   title: 'Andrei Sherikhov',
   tagline: '18 y/o dev from Colombia. coding since i was 7.',
@@ -101,10 +162,65 @@ const config: Config = {
   url: 'https://sherikxd.github.io',
   baseUrl: '/',
 
+  // github pages serves directories, so every route lives at /path/
+  // (canonical url, sitemap and internal links must match that)
+  trailingSlash: true,
+
   organizationName: 'Sherikxd',
   projectName: 'portafoli',
 
   onBrokenLinks: 'throw',
+
+  // sits in <head> of every page: fonts, robots rules and the site-wide
+  // structured data google + ai crawlers read to understand who this is
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: true,
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'robots',
+        content: 'index,follow,max-image-preview:large,max-snippet:-1',
+      },
+    },
+    {tagName: 'meta', attributes: {property: 'og:site_name', content: 'Andrei Sherikhov'}},
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:image:width',
+        content: '1200',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:image:height',
+        content: '630',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:image:alt',
+        content: 'Andrei Sherikhov (Sherikxd) — 18 y/o developer from Colombia',
+      },
+    },
+    {
+      tagName: 'script',
+      attributes: {type: 'application/ld+json'},
+      innerHTML: JSON.stringify(personGraph),
+    },
+  ],
 
   // black & white typography: Space Grotesk for everything, JetBrains Mono for labels
   stylesheets: [
@@ -126,6 +242,9 @@ const config: Config = {
         docs: false, // this site is a portfolio + blog, no docs section
         blog: {
           routeBasePath: 'blog',
+          blogTitle: 'blog',
+          blogDescription:
+            'build logs, hackathon post-mortems and notes from Andrei Sherikhov (Sherikxd), an 18-year-old developer from colombia — react, ai and ethereum.',
           showReadingTime: true,
           postsPerPage: 6,
           feedOptions: {
@@ -144,7 +263,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/social-card.svg',
+    image: 'img/social-card.png',
     colorMode: {
       defaultMode: 'light',
       respectPrefersColorScheme: false,
@@ -155,7 +274,7 @@ const config: Config = {
       {
         name: 'keywords',
         content:
-          'Andrei Sherikhov, Sherikxd, developer, Colombia, AyudaEnCali, Aureo, fire detection, portfolio',
+          'Andrei Sherikhov, Sherikxd, portfolio, developer Colombia, self-taught programmer, coding since 7, teenage developer, AyudaEnCali, NatureIntelligence, fire detection AI, Áureo, Ethereum middleware, EAG Global Buildathon, react, typescript, solidity, cloud infrastructure, automation, system design, data science',
       },
     ],
     navbar: {

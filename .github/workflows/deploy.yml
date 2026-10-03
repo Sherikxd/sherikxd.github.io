@@ -46,3 +46,29 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Submit new urls to IndexNow (bing, duckduckgo, yandex…)
+        run: |
+          python3 - <<'PY'
+          import json, re, urllib.request
+
+          host = "sherikxd.github.io"
+          key = "fa40e48b3682acb5a27d14b540d3d8fa"
+          xml = urllib.request.urlopen(f"https://{host}/sitemap.xml").read().decode()
+          urls = re.findall(r"<loc>(.*?)</loc>", xml)
+          payload = json.dumps({
+              "host": host,
+              "key": key,
+              "keyLocation": f"https://{host}/{key}.txt",
+              "urlList": urls,
+          }).encode()
+          req = urllib.request.Request(
+              "https://api.indexnow.org/indexnow",
+              data=payload,
+              headers={"Content-Type": "application/json; charset=utf-8"},
+          )
+          try:
+              with urllib.request.urlopen(req) as res:
+                  print(f"indexnow: {res.status} ({len(urls)} urls)")
+          except Exception as exc:  # seo ping must never fail the deploy
+              print(f"indexnow: {exc}")
+          PY

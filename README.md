@@ -55,13 +55,17 @@ winning css rules.
 ## structure
 
 ```
-docusaurus.config.ts      site config, navbar, footer, monochrome prism themes
+docusaurus.config.ts      site config, navbar, footer, seo head tags, json-ld
 src/pages/index.tsx       the whole landing page
 src/pages/index.module.css
 src/css/custom.css        the black & white theme
 src/components/reactbits/ react bits sources + types
-blog/                     5 posts (frontmatter: title, authors, tags)
-static/img/               avatar, favicon, social card (all svg, all b/w)
+src/theme/BlogPostItem/   wraps the theme → adds BlogPosting json-ld per post
+scripts/llms-full.mjs     builds build/llms-full.txt after every build
+blog/                     5 posts (frontmatter: title, authors, tags, keywords)
+static/img/               avatar, favicon, social card (svg + 1200×630 png)
+static/robots.txt         robots + ai crawlers + sitemap pointer
+static/llms.txt           plain-text summary for ai assistants
 ```
 
 ## editing the blog
@@ -69,6 +73,28 @@ static/img/               avatar, favicon, social card (all svg, all b/w)
 the homepage shows the 3 latest posts. they are listed in `POSTS` inside
 `src/pages/index.tsx` — when you publish a new post, update that array (title,
 date and href, urls include the date: `/blog/2026/10/01/my-post`).
+
+every post should set `title`, `description`, `tags` and `keywords` in the
+frontmatter — they become the meta description and the `BlogPosting` json-ld.
+
+## seo & ai visibility
+
+the site is set up to be findable by google **and** by chat assistants:
+
+| what | where |
+| --- | --- |
+| canonical urls matching github pages (`trailingSlash: true`) | `docusaurus.config.ts` |
+| titles + meta descriptions | `Layout` props in `src/pages/index.tsx`, `blogDescription` in config |
+| `Person` + `WebSite` + `ProfilePage` json-ld on every page | `headTags` in `docusaurus.config.ts` |
+| `BlogPosting` json-ld on every post | `src/theme/BlogPostItem/index.tsx` |
+| 1200×630 png social card (svg is ignored by most crawlers) | `static/img/social-card.png` |
+| robots.txt allowing gptbot, claudebot, perplexitybot… + sitemap | `static/robots.txt` |
+| `llms.txt` and full-text `llms-full.txt` | `static/llms.txt` + `scripts/llms-full.mjs` (postbuild) |
+| sitemap.xml, rss + atom | docusaurus defaults |
+| IndexNow ping after every deploy (bing, duckduckgo, yandex…) | `.github/workflows/deploy.yml` |
+
+still manual: add the site to [google search console](https://search.google.com/search-console)
+and submit the sitemap once.
 
 ## deploy
 

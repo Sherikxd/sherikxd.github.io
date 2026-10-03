@@ -1,0 +1,44 @@
+# Andrei Sherikhov (Sherikxd)
+
+> 18-year-old self-taught developer from Cali, Colombia, coding since he was 7.
+> Web apps, AI tools and Ethereum infrastructure. 31 public repos, 38 GitHub
+> followers. 2nd place at the EAG Global Buildathon (Cali, sep 2026).
+> Open to new projects — sherikdev@gmail.com
+
+Sherikxd builds things that keep working when the network, the database or a
+service goes down: offline-first apps, fallback chains, realtime pipelines.
+
+## Projects
+
+- [AyudaEnCali](https://github.com/Sherikxd/AyudaEnCali): community emergency platform for Cali — interactive map, needs board and an AI assistant (CaliSolidaria IA) that works even when Supabase or Gemini is down. React 19, TypeScript, Vite, Tailwind, Leaflet, Supabase, Clerk, Vercel.
+- [NatureIntelligence / deteccion-incendio-hackathon](https://github.com/Sherikxd/deteccion-incendio-hackathon): forest fire detection for Cali and Valle del Cauca — NASA FIRMS/VIIRS + NOAA GOES-16 telemetry, IoT stations, thermal cameras, an AI false-positive filter, SSE/websocket alerts and a Rothermel spread simulator. Built in 48 hours.
+- [Áureo](https://github.com/Sherikxd/aureo): open-source Ethereum middleware that watches corporate transfers registered on-chain and scores them live with deterministic speed + volume rules, returning a risk verdict (high/medium/low) over CLI, API and WebSocket with auditable evidence. Solidity, Hardhat, Node, Ethers. 2nd place, EAG Global Buildathon.
+
+## Writing
+
+- [Blog](https://sherikxd.github.io/blog/): build logs, hackathon post-mortems and notes.
+- [ayudaencali: a map that refuses to break](https://sherikxd.github.io/blog/2026/10/01/ayudaencali-offline-first/)
+- [trying to catch fires before they spread](https://sherikxd.github.io/blog/2026/09/26/fire-detection-in-48-hours/)
+- [2nd place at the EAG Global Buildathon](https://sherikxd.github.io/blog/2026/09/22/second-place-eag-global-buildathon/)
+- [áureo: watching ethereum for sketchy transfers](https://sherikxd.github.io/blog/2026/09/21/aureo-explained/)
+- [i started coding at 7. here's what i'd tell my younger self](https://sherikxd.github.io/blog/2026/08/12/coding-since-7/)
+
+## Interests
+
+data science · cloud infrastructure · automation · system design ·
+agent economies inside blockchain (newest)
+
+## Toolbox
+
+typescript, javascript, python, c/c++, php, java, sql · react 19, vite,
+tailwind, react native, leaflet · node, nestjs, flask/django, postgresql,
+mongodb, redis · pytorch, tensorflow, gemini/llms, solidity, hardhat, ethers ·
+linux, docker, github actions, aws/gcp/azure, nginx
+
+## Profiles
+
+- GitHub: https://github.com/Sherikxd
+- LinkedIn: https://www.linkedin.com/in/andrei-sherikhov-3a06582a7/
+- dev.to: https://dev.to/sherikxd
+- Email: sherikdev@gmail.com
+- Hackathon result: https://www.ethcali.org/builders-tour/winners
