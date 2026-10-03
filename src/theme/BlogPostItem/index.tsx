@@ -17,7 +17,7 @@ function useBlogPostingJsonLd(): string | undefined {
     return undefined;
   }
 
-  const url = siteConfig.url + metadata.permalink;
+  const url = siteConfig.url + metadata.permalink.replace(/\/?$/, '/');
   const keywords = [
     ...(frontMatter.keywords ?? []),
     ...metadata.tags.map((tag) => tag.label),
