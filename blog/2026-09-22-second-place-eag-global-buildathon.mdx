@@ -1,0 +1,52 @@
+---
+title: '2nd place at the EAG Global Buildathon'
+authors: [andrei]
+tags: [hackathon, web3]
+description: 'second place with Áureo at the EAG Global Buildathon in cali — 48 hours, 13 projects, 200 USDT on ethereum mainnet.'
+---
+
+on september 20, 2026, at the auditorio sidoc of universidad icesi in cali,
+they announced the winners of the **EAG Global Buildathon** — the ethcali
+builders tour stop — and i got **2nd place** with **Áureo**.
+
+{/* truncate */}
+
+25+ hackers, 13 projects, less than 48 hours. the track was *application
+middleware & open-source tooling* and the prize was 200 usdt paid on ethereum
+mainnet.
+
+## the project: aureo
+
+áureo is open-source ethereum middleware for risk and compliance. it watches
+corporate transfers registered on chain and evaluates them in real time with
+deterministic speed and volume rules. then it returns a risk verdict —
+**high / medium / low** — through cli, api and websocket, with the evidence
+auditable behind it.
+
+short version: it is a camera in front of *your* building, not in front of the
+whole city. it only watches the contract you configure, and it tells you when
+something looks off.
+
+## how the weekend actually went
+
+- **friday night**: repo, `AureoCore.sol`, hardhat + ignition, one contract
+  with roles and a circuit breaker.
+- **saturday**: the backend ingesting logs over rpc, a 60s analysis window and
+  the two deterministic rules (too many ops in a few blocks, absurd volume).
+- **saturday night**: websocket `/stream`, cli and the audit report. this is
+  where sleep stopped being a priority.
+- **sunday**: docs, `npm run docker:up` so a judge could run the whole thing
+  with one command, and a demo dapp to show the sdk live.
+
+## what i take from it
+
+honestly, the win was not the money. it was that the thing they clicked
+**worked on their machine** — no "clone it and pray" moment. everything was
+scripted: `setup:env`, `docker:up`, `cli stream`.
+
+also: i'm 18 and i've been writing code since i was 7. seeing my name on that
+list next to people i follow was a strange, very good feeling.
+
+official winners:
+[ethcali.org/builders-tour/winners](https://www.ethcali.org/builders-tour/winners) ·
+project on devfolio: [devfolio.co/projects/aureo-f338](https://devfolio.co/projects/aureo-f338)

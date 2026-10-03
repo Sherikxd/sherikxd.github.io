@@ -1,0 +1,64 @@
+---
+title: 'ayudaencali: a map that refuses to break'
+authors: [andrei]
+tags: [devlog]
+description: 'how i built a community emergency platform for cali that keeps working when supabase, gemini or the whole network dies.'
+---
+
+so this is the story of **ayudaencali**, a community emergency platform for
+santiago de cali. interactive map, a needs board where the neighborhood posts
+what it actually needs, and an ai assistant called `CaliSolidaria IA` on top
+of the real data.
+
+{/* truncate */}
+
+the interesting part is not the features. it is that i built the whole thing
+around one rule:
+
+> nothing is allowed to leave a white screen.
+
+## the fallback chain
+
+every external service has a plan b (and sometimes a plan c):
+
+- **database:** supabase → in-memory cache → `localStorage`
+- **ai:** gemini → a local directory of emergency points, so the chat still
+  answers
+- **server:** if the browser can't even reach the api, the ui reads what it
+  already has
+
+so if supabase explodes, the api answers from memory. if the api is down, the
+frontend reads `localStorage`. in no case does the user get nothing.
+
+## what it actually uses
+
+| layer | stuff |
+| --- | --- |
+| frontend | react 19 + typescript, vite, tailwind 4, leaflet |
+| backend | node + express, and on vercel **one function per route** |
+| data | supabase (postgresql + rls, 4 tables) with memory cache |
+| auth | clerk (jwt verified on the server, never trusted from the body) |
+| ai | google gemini with a local fallback |
+
+## the bits nobody puts in a demo
+
+- **rate limiting**: 60 writes/min and 15 chat messages/min per ip. yes, i got
+  tired of my own spam during testing.
+- **rate limits change per environment**: on vercel each function has its own
+  counter, on express they share one. documented, not discovered in prod.
+- **a real 404**: `public/404.html` with `noindex`, served with an actual 404
+  status. the spa no longer returns 200 for a url that doesn't exist.
+- **cookie consent that matters**: third-party fonts only load if you say yes.
+  i didn't want to be *that* site.
+- **ci as a gate**: `tsc --noEmit` → build → jsdom tests → a 60-check smoke
+  test against the vercel routes. vercel only runs `vite build`, so this
+  pipeline is the only thing stopping me from shipping broken types.
+
+## deploy
+
+free tier everything: vercel hobby (10 functions, 2 slots left), supabase,
+clerk, cloudinary for images. plus a dockerfile that runs the same
+`server.ts` if i ever want cloud run instead.
+
+live: [https://www.ayudaencali.lat](https://www.ayudaencali.lat) · code:
+[github.com/Sherikxd/AyudaEnCali](https://github.com/Sherikxd/AyudaEnCali)

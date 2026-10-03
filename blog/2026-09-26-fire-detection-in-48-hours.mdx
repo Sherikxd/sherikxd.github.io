@@ -1,0 +1,62 @@
+---
+title: 'trying to catch fires before they spread'
+authors: [andrei]
+tags: [devlog, ai]
+description: 'natureintelligence: satellite telemetry, iot stations and thermal cameras to detect forest fires early around cali and the valle del cauca.'
+---
+
+fire season in the valle del cauca is no joke, so for a hackathon i built
+**natureintelligence**: early detection of forest fires for santiago de cali
+and the valley, with real-time verification.
+
+{/* truncate */}
+
+## where the signal comes from
+
+four sources, because one is never enough:
+
+1. **nasa firms / viirs** + **noaa goes-16** satellite telemetry
+2. a network of **iot stations** on the hills of cali (esp32, raspberry pi,
+   lorawan)
+3. **ptz thermal cameras** with computer vision
+4. a **decision engine** with ai on top of all of it
+
+the engine's job is not "detect smoke", it is **filter**: confirmed dispatch,
+discarded false positive, or early monitoring. sending a truck for a sun glare
+on a solar panel is how you burn budget and credibility.
+
+## realtime, actually realtime
+
+- alerts over **server-sent events** (`/stream`)
+- telemetry over **websockets** (`/ws`)
+- a rest api to ingest hardware readings and query sensors
+- a sandbox with fire scenarios you can trigger manually
+
+the fun part was the **spread simulator** (rothermel model) in the web panel.
+you pick wind and terrain, it shows where the fire would go, and you can
+dispatch via whatsapp from the same screen.
+
+## testing is what kept it alive
+
+we had 48 hours, so the test suite was the thing that let me refactor without
+fear:
+
+| test | what it protects |
+| --- | --- |
+| `sseEvents.test.ts` | the contract of event names |
+| `server.test.ts` | the real server: live sse, `/api/simulate/spread` |
+| `websocketService.test.ts` | outgoing queue during handshake, manual close |
+| `fireSpreadSimulator.test.tsx` | the real model, not a mock |
+| `snippets.test.ts` | that every snippet in the ui actually compiles |
+
+`npm run check` = typecheck + the whole suite. if it is green, push.
+
+## honest scope
+
+the demo works end to end for alerts, telemetry, streaming and simulation.
+whatsapp dispatch and the external llm analysis are wired but stay
+simulated until a real provider is configured. i'd rather say that than
+pretend.
+
+code: [github.com/Sherikxd/deteccion-incendio-hackathon](https://github.com/Sherikxd/deteccion-incendio-hackathon) ·
+live: [deteccion-incendio-hackathon.vercel.app](https://deteccion-incendio-hackathon.vercel.app)

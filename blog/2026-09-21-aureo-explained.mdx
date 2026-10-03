@@ -1,0 +1,76 @@
+---
+title: 'áureo: watching ethereum for sketchy transfers'
+authors: [andrei]
+tags: [web3, devlog]
+description: 'how áureo turns on-chain events into an auditable risk verdict: deterministic rules first, llm second, cli/api/websocket out.'
+---
+
+áureo is the project that got me 2nd place at the EAG Global Buildathon, so
+here is a less glamorous, more technical explanation of what is inside.
+
+{/* truncate */}
+
+## the problem
+
+apps that move corporate money on ethereum usually have on-chain events on one
+side, risk rules on another, compliance alerts on a third, and whatever
+investigation tool the team uses on a fourth. by the time someone notices a
+weird pattern, it is a postmortem.
+
+áureo is a middleware that sits in the middle: it records operations and
+alerts in `AureoCore`, watches events in real time, applies deterministic
+rules, and exposes the result through **api, websocket, cli and sdk**.
+
+## rules first, llm second
+
+the deterministic rules run *before* any llm call:
+
+- **block speed**: more than 3 operations from the same address within a
+  5-block window → risk `alto` and `bloquear_contrato: true`
+- **volume anomaly**: an amount above 3x the historical average (or above
+  `OPERATIONAL_RESERVE`) → risk at least `medio` and `requiere_mfa: true`
+
+if an llm provider is configured (openrouter, groq or xai), it only *enriches*
+the analysis. if no key is available, the backend keeps going and marks the
+result `fuente: "determinista_degradado"`. a missing api key never means a
+down service.
+
+```json
+{
+  "nivel_riesgo": "alto",
+  "motivo": "Más de 3 operaciones en pocos bloques",
+  "requiere_mfa": false,
+  "bloquear_contrato": true
+}
+```
+
+## the reusable part: `@aureo/sdk`
+
+the sdk is the piece i care most about. a dapp can:
+
+- connect a signer without exposing the private key to the consumer
+- verify that the public address matches the private key
+- subscribe to evm events over websocket with explicit cleanup
+- run speed/volume policies deterministically
+- keep local metrics (operations, amounts, risk, mfa, blocks) in memory
+
+```js
+import {createAureoClient} from '@aureo/sdk';
+
+const aureo = createAureoClient({rpcUrl, wsRpcUrl, contractAddress, abi});
+const unsubscribe = aureo.subscribe('Transfer', (event) => {
+  console.log(aureo.evaluatePolicy([/* ... */]));
+});
+```
+
+so somebody else can build smart accounts, session keys, gas abstraction or
+hardware wallet flows on top without touching my backend.
+
+## scope, said out loud
+
+áureo does **not** watch the whole blockchain. it watches the contract you
+configure. it also does not custody funds and it does not pretend to replace
+an hsm, a safe or an mpc provider. the circuit breaker decision is published
+as an auditable verdict — the final call belongs to compliance.
+
+code: [github.com/Sherikxd/aureo](https://github.com/Sherikxd/aureo)

@@ -1,0 +1,15 @@
+devlog:
+  label: devlog
+  description: what i shipped, what broke, what i fixed
+hackathon:
+  label: hackathon
+  description: building fast with no sleep
+web3:
+  label: web3
+  description: ethereum, solidity and on-chain tooling
+ai:
+  label: ai
+  description: models, agents and llm stuff
+life:
+  label: life
+  description: random thoughts from a teenage dev

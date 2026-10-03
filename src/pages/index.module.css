@@ -1,0 +1,551 @@
+/* ------------------------------------------------------------------ hero */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--bb-line);
+  padding: clamp(3.5rem, 9vh, 6.5rem) 0 clamp(2.5rem, 6vh, 4rem);
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--bb-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bb-muted);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  background: var(--bb-fg);
+  display: inline-block;
+  animation: blink 1.6s steps(1, end) infinite;
+}
+
+@keyframes blink {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  61%,
+  100% {
+    opacity: 0.15;
+  }
+}
+
+.name {
+  margin: 1.1rem 0 0.4rem;
+  font-size: clamp(3.2rem, 13vw, 9.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+  font-weight: 700;
+  text-transform: lowercase;
+  overflow-wrap: anywhere;
+}
+
+.handle {
+  display: block;
+  font-family: var(--bb-mono);
+  font-size: clamp(1rem, 2.4vw, 1.6rem);
+  letter-spacing: 0.06em;
+  color: var(--bb-muted);
+  margin-top: 1rem;
+  text-transform: none;
+  font-weight: 400;
+}
+
+.lede {
+  margin-top: 1.75rem;
+  max-width: 44rem;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.65;
+  color: var(--bb-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.ghost {
+  font-family: var(--bb-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 1.6rem;
+  border: 1px solid var(--bb-line);
+  color: var(--bb-fg);
+  text-decoration: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.ghost:hover {
+  border-color: var(--bb-fg);
+  background: var(--bb-spot);
+}
+
+/* ----------------------------------------------------------------- stats */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--bb-line);
+  border: 1px solid var(--bb-line);
+  margin-top: clamp(2.5rem, 6vh, 4rem);
+}
+
+.stat {
+  background: var(--bb-bg);
+  padding: 1.35rem 1.25rem;
+}
+
+.statValue {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.statSuffix {
+  font-size: 0.5em;
+  font-family: var(--bb-mono);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.statLabel {
+  margin-top: 0.65rem;
+  font-family: var(--bb-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bb-muted);
+}
+
+/* -------------------------------------------------------------- sections */
+
+.section {
+  padding: clamp(3.5rem, 9vh, 6rem) 0;
+  border-bottom: 1px solid var(--bb-line);
+}
+
+.sectionHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: clamp(1.75rem, 4vh, 2.75rem);
+}
+
+.sectionTitle {
+  font-size: clamp(1.9rem, 5vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  margin: 0;
+  text-transform: lowercase;
+}
+
+.sectionIndex {
+  font-family: var(--bb-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bb-muted);
+}
+
+/* ----------------------------------------------------------------- about */
+
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.aboutText p {
+  margin: 0 0 1.15rem;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.7;
+}
+
+.aboutText p:last-child {
+  margin-bottom: 0;
+}
+
+.facts {
+  border-top: 1px solid var(--bb-line);
+}
+
+.fact {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--bb-line);
+  font-family: var(--bb-mono);
+  font-size: 0.8rem;
+}
+
+.factKey {
+  color: var(--bb-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  padding-top: 0.15rem;
+}
+
+.factValue {
+  text-align: right;
+}
+
+/* ----------------------------------------------------------------- work */
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.15rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.75rem !important;
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--bb-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bb-muted);
+}
+
+.cardTitle {
+  margin: 1.15rem 0 0.15rem;
+  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  text-transform: lowercase;
+}
+
+.cardSub {
+  font-family: var(--bb-mono);
+  font-size: 0.75rem;
+  color: var(--bb-muted);
+  letter-spacing: 0.04em;
+}
+
+.cardDesc {
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--bb-muted);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.15rem;
+}
+
+.chip {
+  border: 1px solid var(--bb-line);
+  padding: 0.22rem 0.5rem;
+  font-family: var(--bb-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cardLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-family: var(--bb-mono);
+  font-size: 0.76rem;
+}
+
+.cardLink {
+  color: var(--bb-fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--bb-line);
+  padding-bottom: 2px;
+}
+
+.cardLink:hover {
+  border-color: var(--bb-fg);
+}
+
+/* --------------------------------------------------------- achievement */
+
+.win {
+  background: var(--bb-fg);
+  color: var(--bb-bg);
+  padding: clamp(1.75rem, 5vw, 3.25rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.winRank {
+  font-size: clamp(4rem, 14vw, 9rem);
+  line-height: 0.8;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  margin: 0;
+}
+
+.winRankLabel {
+  font-family: var(--bb-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  display: block;
+  margin-bottom: 0.9rem;
+}
+
+.winTitle {
+  font-size: clamp(1.5rem, 3vw, 2.3rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin: 0 0 0.85rem;
+  text-transform: lowercase;
+}
+
+.winText {
+  font-size: 1rem;
+  line-height: 1.7;
+  opacity: 0.78;
+  margin: 0 0 1.35rem;
+}
+
+.winMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  font-family: var(--bb-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  padding-top: 1.1rem;
+  border-top: 1px solid currentColor;
+  opacity: 0.78;
+}
+
+.winLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  font-family: var(--bb-mono);
+  font-size: 0.8rem;
+}
+
+.winLink {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+
+.winLink:hover {
+  opacity: 0.7;
+}
+
+/* ---------------------------------------------------------------- stack */
+
+.stackGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1px;
+  background: var(--bb-line);
+  border: 1px solid var(--bb-line);
+}
+
+.stackCol {
+  background: var(--bb-bg);
+  padding: 1.4rem 1.3rem;
+}
+
+.stackTitle {
+  font-family: var(--bb-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bb-muted);
+  margin: 0 0 0.9rem;
+}
+
+.stackList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--bb-mono);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.stackList li {
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed var(--bb-line-soft);
+}
+
+.stackList li:last-child {
+  border-bottom: none;
+}
+
+/* ----------------------------------------------------------------- blog */
+
+.blogRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--bb-line);
+  border: 1px solid var(--bb-line);
+}
+
+.blogItem {
+  background: var(--bb-bg);
+  padding: 1.5rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--bb-fg);
+  transition: background 0.2s ease;
+}
+
+.blogItem:hover {
+  background: var(--bb-spot);
+}
+
+.blogDate {
+  font-family: var(--bb-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bb-muted);
+}
+
+.blogTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.35;
+  text-transform: lowercase;
+}
+
+.blogRead {
+  margin-top: auto;
+  font-family: var(--bb-mono);
+  font-size: 0.72rem;
+  color: var(--bb-muted);
+}
+
+/* -------------------------------------------------------------- contact */
+
+.contact {
+  text-align: left;
+}
+
+.mail {
+  display: inline-block;
+  font-size: clamp(1.6rem, 6.5vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  text-transform: lowercase;
+  color: var(--bb-fg);
+  text-decoration: none;
+  line-height: 1.05;
+  word-break: break-word;
+  border-bottom: 3px solid var(--bb-fg);
+}
+
+.mail:hover {
+  opacity: 0.6;
+}
+
+.contactNote {
+  margin-top: 1.5rem;
+  max-width: 46rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--bb-muted);
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2.25rem;
+  font-family: var(--bb-mono);
+  font-size: 0.82rem;
+}
+
+.social {
+  color: var(--bb-fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--bb-line);
+  padding-bottom: 2px;
+}
+
+.social:hover {
+  border-color: var(--bb-fg);
+}
+
+.note {
+  margin-top: 2.5rem;
+  font-family: var(--bb-mono);
+  font-size: 0.76rem;
+  line-height: 1.7;
+  color: var(--bb-muted);
+  max-width: 46rem;
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 900px) {
+  .about {
+    grid-template-columns: 1fr;
+  }
+  .win {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

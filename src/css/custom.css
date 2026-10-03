@@ -1,0 +1,435 @@
+/**
+ * Black & white theme. No colors, only ink and paper.
+ * Light mode = paper (white) + ink (black)
+ * Dark mode  = ink (black) + paper (white)
+ */
+
+:root {
+  --bb-bg: #ffffff;
+  --bb-fg: #000000;
+  --bb-line: rgba(0, 0, 0, 0.18);
+  --bb-line-soft: rgba(0, 0, 0, 0.09);
+  --bb-muted: rgba(0, 0, 0, 0.58);
+  --bb-spot: rgba(0, 0, 0, 0.07);
+
+  --bb-sans: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --bb-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+
+  /* docusaurus primitives -> strict b/w */
+  --ifm-color-primary: #000000;
+  --ifm-color-primary-dark: #1a1a1a;
+  --ifm-color-primary-darker: #000000;
+  --ifm-color-primary-darkest: #1a1a1a;
+  --ifm-color-primary-light: #1a1a1a;
+  --ifm-color-primary-lighter: #000000;
+  --ifm-color-primary-lightest: #1a1a1a;
+  --ifm-background-color: #ffffff;
+  --ifm-foreground-color: #000000;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-code-background: rgba(0, 0, 0, 0.07);
+  --ifm-code-bg: rgba(0, 0, 0, 0.06);
+  --ifm-pre-background: rgba(0, 0, 0, 0.045);
+  --ifm-table-background: rgba(0, 0, 0, 0.03);
+  --ifm-blockquote-color: rgba(0, 0, 0, 0.72);
+  --ifm-table-border-color: rgba(0, 0, 0, 0.18);
+  --ifm-navbar-background-color: #ffffff;
+  --ifm-footer-background-color: #000000;
+  --ifm-hr-background-color: rgba(0, 0, 0, 0.18);
+  --ifm-global-radius: 0;
+  --ifm-card-border-radius: 0;
+  --ifm-font-family-base: var(--bb-sans);
+  --ifm-font-family-monospace: var(--bb-mono);
+  --ifm-heading-font-family: var(--bb-sans);
+  --ifm-heading-font-weight: 700;
+  --ifm-line-height-base: 1.65;
+  --ifm-navbar-height: 4rem;
+  --ifm-z-index-fixed: 20;
+}
+
+[data-theme='dark'] {
+  --bb-bg: #000000;
+  --bb-fg: #ffffff;
+  --bb-line: rgba(255, 255, 255, 0.24);
+  --bb-line-soft: rgba(255, 255, 255, 0.12);
+  --bb-muted: rgba(255, 255, 255, 0.62);
+  --bb-spot: rgba(255, 255, 255, 0.09);
+
+  --ifm-color-primary: #ffffff;
+  --ifm-color-primary-dark: #e6e6e6;
+  --ifm-color-primary-darker: #ffffff;
+  --ifm-color-primary-darkest: #e6e6e6;
+  --ifm-color-primary-light: #e6e6e6;
+  --ifm-color-primary-lighter: #ffffff;
+  --ifm-color-primary-lightest: #e6e6e6;
+  --ifm-background-color: #000000;
+  --ifm-foreground-color: #ffffff;
+  --ifm-background-surface-color: #000000;
+  --ifm-code-background: rgba(255, 255, 255, 0.1);
+  --ifm-code-bg: rgba(255, 255, 255, 0.1);
+  --ifm-pre-background: rgba(255, 255, 255, 0.07);
+  --ifm-table-background: rgba(255, 255, 255, 0.05);
+  --ifm-blockquote-color: rgba(255, 255, 255, 0.75);
+  --ifm-table-border-color: rgba(255, 255, 255, 0.24);
+  --ifm-navbar-background-color: #000000;
+  --ifm-footer-background-color: #ffffff;
+  --ifm-hr-background-color: rgba(255, 255, 255, 0.24);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bb-bg);
+  color: var(--bb-fg);
+  font-family: var(--bb-sans);
+}
+
+::selection {
+  background: var(--bb-fg);
+  color: var(--bb-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------- navbar */
+
+.navbar {
+  background-color: var(--bb-bg);
+  border-bottom: 1px solid var(--bb-line);
+  backdrop-filter: saturate(0) blur(6px);
+  padding: 0 1rem;
+}
+
+.navbar__inner {
+  font-family: var(--bb-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.navbar__brand {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.navbar__logo {
+  height: 1.6rem;
+  width: 1.6rem;
+  border-radius: 0;
+}
+
+.navbar__item,
+.navbar__link {
+  font-family: var(--bb-mono);
+  font-size: 0.82rem;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--bb-fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--bb-fg);
+}
+
+.navbar-sidebar {
+  background-color: var(--bb-bg);
+}
+
+/* logo is ink-on-paper, flip it on the dark side */
+[data-theme='dark'] .navbar__logo {
+  filter: invert(1);
+}
+
+/* ---------------------------------------------------------------- footer */
+
+.footer {
+  background-color: var(--bb-bg) !important;
+  color: var(--bb-fg);
+  border-top: 1px solid var(--bb-line);
+  padding: 3rem 0 2rem;
+}
+
+.footer__title {
+  font-family: var(--bb-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bb-muted);
+  margin-bottom: 0.9rem;
+}
+
+.footer__link-item {
+  font-family: var(--bb-mono);
+  font-size: 0.85rem;
+  color: var(--bb-fg);
+}
+
+.footer__link-item:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer__bottom {
+  border-top: 1px solid var(--bb-line-soft);
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  font-family: var(--bb-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--bb-muted);
+}
+
+/* ------------------------------------------------------------- reactbits */
+
+/* SpotlightCard: strip the dark defaults, keep only the spotlight */
+.card-spotlight {
+  border-radius: 0 !important;
+  border: 1px solid var(--bb-line) !important;
+  background-color: transparent !important;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.card-spotlight:hover {
+  border-color: var(--bb-fg) !important;
+}
+
+/* StarBorder: inverted ink block + shine in the foreground color */
+.star-border-container {
+  border-radius: 0 !important;
+}
+
+.star-border-container .inner-content {
+  border-radius: 0 !important;
+  border-color: var(--bb-fg) !important;
+  background: var(--bb-fg) !important;
+  color: var(--bb-bg) !important;
+  font-family: var(--bb-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 1.6rem;
+  transition: opacity 0.2s ease;
+}
+
+.star-border-container:hover .inner-content {
+  opacity: 0.85;
+}
+
+.star-border-container .border-gradient-top,
+.star-border-container .border-gradient-bottom {
+  background: radial-gradient(circle, var(--bb-fg), transparent 10%) !important;
+}
+
+.star-border-container--ghost .inner-content {
+  background: transparent !important;
+  color: var(--bb-fg) !important;
+  border-color: var(--bb-line) !important;
+}
+
+.shiny-text {
+  color: var(--bb-muted);
+}
+
+/* ------------------------------------------------------------- docusaurus */
+
+main {
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.03em;
+  text-transform: lowercase;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+code {
+  border: 1px solid var(--bb-line-soft);
+  font-family: var(--bb-mono);
+  font-size: 0.85em;
+}
+
+pre {
+  border: 1px solid var(--bb-line);
+  border-radius: 0;
+  background: var(--ifm-pre-background);
+}
+
+.theme-code-block {
+  border-radius: 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  font-family: var(--bb-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+blockquote {
+  border-left: 3px solid var(--bb-fg);
+  font-style: normal;
+  color: var(--bb-muted);
+}
+
+.pagination-nav__link {
+  border: 1px solid var(--bb-line);
+  border-radius: 0;
+}
+.pagination-nav__link:hover {
+  border-color: var(--bb-fg);
+  background: transparent;
+}
+
+.breadcrumbs__link,
+.hero--primary {
+  border-radius: 0;
+}
+
+/* blog list */
+.blog-list-page .blogCard,
+article .theme-blog-post-card,
+.blogCard {
+  border: 1px solid var(--bb-line) !important;
+  border-radius: 0 !important;
+}
+
+.blogCard:hover {
+  border-color: var(--bb-fg) !important;
+}
+
+.container {
+  max-width: 1400px;
+}
+
+/* ------------------------------------------------- strict grayscale ramp */
+/* docusaurus ships a slightly blue gray scale + colored status palette.
+   everything below forces pure black / white / gray. */
+
+:root {
+  --ifm-color-gray-0: #ffffff;
+  --ifm-color-gray-100: #f7f7f7;
+  --ifm-color-gray-200: #eeeeee;
+  --ifm-color-gray-300: #dddddd;
+  --ifm-color-gray-400: #cccccc;
+  --ifm-color-gray-500: #b3b3b3;
+  --ifm-color-gray-600: #8c8c8c;
+  --ifm-color-gray-700: #6b6b6b;
+  --ifm-color-gray-800: #4d4d4d;
+  --ifm-color-gray-900: #2b2b2b;
+  --ifm-color-gray-1000: #000000;
+
+  --ifm-color-primary-contrast-background: #ffffff;
+  --ifm-color-primary-contrast-foreground: #000000;
+
+  --ifm-color-secondary: #f0f0f0;
+  --ifm-color-secondary-dark: #d6d6d6;
+  --ifm-color-secondary-darker: #c4c4c4;
+  --ifm-color-secondary-darkest: #a6a6a6;
+  --ifm-color-secondary-light: #f5f5f5;
+  --ifm-color-secondary-lighter: #fafafa;
+  --ifm-color-secondary-lightest: #ffffff;
+  --ifm-color-secondary-contrast-background: #ffffff;
+  --ifm-color-secondary-contrast-foreground: #000000;
+
+  --ifm-color-success: #000000;
+  --ifm-color-success-dark: #000000;
+  --ifm-color-info: #000000;
+  --ifm-color-info-dark: #000000;
+  --ifm-color-warning: #000000;
+  --ifm-color-warning-dark: #000000;
+  --ifm-color-danger: #000000;
+  --ifm-color-danger-dark: #000000;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary-contrast-background: #000000;
+  --ifm-color-primary-contrast-foreground: #ffffff;
+
+  --ifm-color-secondary: #161616;
+  --ifm-color-secondary-dark: #333333;
+  --ifm-color-secondary-darker: #444444;
+  --ifm-color-secondary-darkest: #666666;
+  --ifm-color-secondary-light: #111111;
+  --ifm-color-secondary-lighter: #0b0b0b;
+  --ifm-color-secondary-lightest: #000000;
+  --ifm-color-secondary-contrast-background: #000000;
+  --ifm-color-secondary-contrast-foreground: #ffffff;
+
+  --ifm-color-success: #ffffff;
+  --ifm-color-success-dark: #ffffff;
+  --ifm-color-info: #ffffff;
+  --ifm-color-info-dark: #ffffff;
+  --ifm-color-warning: #ffffff;
+  --ifm-color-warning-dark: #ffffff;
+  --ifm-color-danger: #ffffff;
+  --ifm-color-danger-dark: #ffffff;
+}
+
+/* admonitions / callouts: ink on paper, whatever the type */
+.alert--primary,
+.alert--secondary,
+.alert--success,
+.alert--info,
+.alert--warning,
+.alert--danger {
+  --ifm-alert-background-color: var(--bb-bg);
+  --ifm-alert-background-color-highlight: transparent;
+  --ifm-alert-foreground-color: var(--bb-fg);
+  --ifm-alert-border-color: var(--bb-fg);
+}
+
+/* the default dark-mode icon filter tints the arrow blue */
+[data-theme='dark'] {
+  --ifm-menu-link-sublist-icon-filter: invert(1);
+}
+
+/* leftover docusaurus accents */
+:root {
+  --ifm-color-content-secondary: var(--bb-muted);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.07);
+}
+
+[data-theme='dark'] {
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* "copied!" checkmark on code blocks */
+[class*='copyButtonSuccessIcon'] {
+  color: var(--bb-fg) !important;
+}
+
+/* the footer variant class would paint it #303846 */
+.footer {
+  --ifm-footer-background-color: var(--bb-bg);
+  --ifm-footer-color: var(--bb-fg);
+  --ifm-footer-link-color: var(--bb-fg);
+  --ifm-footer-title-color: var(--bb-muted);
+}
