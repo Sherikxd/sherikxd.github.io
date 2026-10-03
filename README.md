@@ -92,6 +92,7 @@ the site is set up to be findable by google **and** by chat assistants:
 | `llms.txt` and full-text `llms-full.txt` | `static/llms.txt` + `scripts/llms-full.mjs` (postbuild) |
 | sitemap.xml, rss + atom | docusaurus defaults |
 | IndexNow ping after every deploy (bing, duckduckgo, yandex…) | `.github/workflows/deploy.yml` |
+| google search console verification file | `static/google633d40cbfc1dc0f1.html` (served at the site root, do not delete) |
 
 still manual: add the site to [google search console](https://search.google.com/search-console)
 and submit the sitemap once.
